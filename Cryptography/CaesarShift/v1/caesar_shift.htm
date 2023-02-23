@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Caesar Shift v1</title>
+    </head>
+    <body>
+        <script>
+            const allValidLetters = 'abcdefghijklmnopqrstuvwxyz';
+
+            function shift(plainText, amount) {
+                let result = '';
+                for (let i = 0; i < plainText.length; i++) {
+                    const letter = plainText.substr(i, 1);
+                    result += shiftLetter(letter, amount);
+                }
+                return result;
+            }
+
+            function shiftLetter(letter, amount) {
+                const currentIndex = allValidLetters.indexOf(letter.toLowerCase());
+                if (currentIndex < 0) {
+                    // Not a letter, do not shift.
+                    return letter;
+                }
+
+                const newIndex = (currentIndex + amount) % allValidLetters.length;
+                return allValidLetters.substr(newIndex, 1).toUpperCase();
+            }
+        </script>
+    </body>
+</html>
