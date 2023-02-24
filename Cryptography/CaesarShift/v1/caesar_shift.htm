@@ -7,23 +7,33 @@
         <script>
             const allValidLetters = 'abcdefghijklmnopqrstuvwxyz';
 
-            function shift(plainText, amount) {
+            function shift(plaintext, shiftAmount) {
                 let result = '';
-                for (let i = 0; i < plainText.length; i++) {
-                    const letter = plainText.substr(i, 1);
-                    result += shiftLetter(letter, amount);
+                for (let i = 0; i < plaintext.length; i++) {
+                    const letter = plaintext.substr(i, 1);
+                    result += shiftLetter(letter, shiftAmount);
                 }
                 return result;
             }
 
-            function shiftLetter(letter, amount) {
+            function unshift(plaintext, shiftAmount) {
+                return shift(plaintext, shiftAmount).toLowerCase();
+            }
+
+            function bruteForce(plaintext) {
+                for (let i = 1; i < allValidLetters.length; i++) {
+                    console.log(-i, unshift(plaintext, -i));
+                }
+            }
+
+            function shiftLetter(letter, shiftAmount) {
                 const currentIndex = allValidLetters.indexOf(letter.toLowerCase());
                 if (currentIndex < 0) {
                     // Not a letter, do not shift.
                     return letter;
                 }
 
-                const newIndex = (currentIndex + amount) % allValidLetters.length;
+                const newIndex = (currentIndex + shiftAmount + allValidLetters.length) % allValidLetters.length;
                 return allValidLetters.substr(newIndex, 1).toUpperCase();
             }
         </script>
